@@ -3,7 +3,7 @@
 const schoolObject = {
     students:{
         '20216127':{
-            name : 'Revin Naufal Alief',
+            name : 'Mark',
             password : '123',
             studentStatus : true,
             courses:{
@@ -14,7 +14,7 @@ const schoolObject = {
         },
         
         '20216128':{
-            name: 'Allwinnaldo',
+            name: 'Tony',
             password : '123',
             studentStatus : true,
             courses:{
@@ -22,7 +22,7 @@ const schoolObject = {
             }
         },
         '20216129':{
-            name : 'Muhammad Rasyid Redha',
+            name : 'Peter',
             password : '123',
             studentStatus : true,
             courses:{
@@ -30,7 +30,7 @@ const schoolObject = {
             }
         },
         '20216130':{
-            name : 'Saviour',
+            name : 'Sullivan',
             password : '123',
             studentStatus : true,
             courses:{
