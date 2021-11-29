@@ -54,6 +54,10 @@ const courseWeightObject = {
     'blockchain' : 4
 }
 
+const coursePeople = {
+
+}
+
 function teacher(){
     var opsi;
     while(opsi != 0){
@@ -84,7 +88,36 @@ function teacher(){
     }
 }
 function teacherMenu1(){
+    console.log('1. Input based on StudentID');
+    console.log('2. Input based on course title');
+    var opsiLocal = parseInt(prompt('Choose option : '));
+    
+    switch(opsiLocal){
+        case 1:
+            teacherMenu11();
+            break;
+        case 2:
+            teacherMenu12();
+            break;
+        default:
+            console.log('Opsi tidak valid');
+            break;
+    }
+    /*
+    try {
+        schoolObject.students[studentID][subject] = score;
+        
+    } catch (error) {
+        schoolObject.students[studentID] ={};
+    }*/
+    
+
+
+    
+}
+function teacherMenu11(){
     var studentID = prompt('Please input the number ID of the student : ');
+    
     
     //console.log(isMyObjectEmpty);
 
@@ -111,19 +144,26 @@ function teacherMenu1(){
         console.log('|---------------------------|');
         
     }
-    
-    /*
-    try {
-        schoolObject.students[studentID][subject] = score;
-        
-    } catch (error) {
-        schoolObject.students[studentID] ={};
-    }*/
-    
-
-
-    
 }
+
+function teacherMenu12(){
+    var courseTitle = prompt('Please input the name of the course : ');
+
+    var listPeople = coursePeople[courseTitle];
+
+    for(let i=0;i<listPeople.length ;i++){
+        var score = prompt(`Insert Score for ${listPeople[i]} - ${schoolObject.students[listPeople[i]].name} : `);
+        var gpa = numberToGPAConversion(score);
+        schoolObject.students[listPeople[i]].courses[courseTitle] = {
+            weight : courseWeightObject[courseTitle.toLocaleLowerCase()], 
+            score : score, 
+            gpa : gpa
+        };
+        console.log(`Successfully Added ${listPeople[i]} -> ${courseTitle} : ${schoolObject.students[listPeople[i]].courses[courseTitle].gpa}`);
+    }
+
+}
+
 function teacherMenu2(){
     var firstStudentID = parseInt('20216127')
     var numOfStudents = Object.keys(schoolObject.students).length;
@@ -202,7 +242,8 @@ function student(){
 
     if(schoolObject.students[studentID].password === studentPassword){
         studentMenu(studentID);
-
+    } else{
+        console.log('Username/Password Incorrect\n');
     }
 
 }
@@ -213,6 +254,8 @@ function studentMenu(studentID){
         //console.log('Welcome Student')
         console.log(`\n~ Student Menu ~`);
         console.log(`1. View Report`);
+        console.log('2. Register coursework');
+        console.log('3. See courses');
         
         const numStudentChoice = parseInt(prompt('Choose Menu: '));
         switch(numStudentChoice){
@@ -222,7 +265,11 @@ function studentMenu(studentID){
                 break;
             case 2:
                 opsi=2;
+                studentMenu2(studentID);
                 //teacherMenu2();
+                break;
+            case 3:
+                studentMenu3(studentID);
                 break;
             default:
                 opsi=0;
@@ -260,6 +307,30 @@ function studentMenu1(studentID){
     console.log('---\t-----------\t---\t-----\t-----+');
     console.log(`Cumulative GPA\t\t\t${cumulativeGPA}`)
 
+}
+
+function studentMenu2(studentID){
+    var num = 1;
+    for(let key in courseWeightObject){
+        console.log(`${num}. ${key}`);
+        num = num + 1;
+
+    }
+
+    var courseTitle = prompt(`Please insert the course name : `);
+    schoolObject.students[studentID].courses = { courseTitle:0 };
+    if(coursePeople[courseTitle] === undefined){
+        coursePeople[courseTitle] = [studentID];
+    } else{
+        coursePeople[courseTitle].push(studentID);
+    }
+    console.log(coursePeople)
+
+
+}
+
+function studentMenu3(studenID){
+    console.log('Still in the development');
 }
 
 const prompt = require('prompt-sync')({sigint: true});
