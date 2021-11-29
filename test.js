@@ -59,7 +59,8 @@ function teacher(){
     while(opsi != 0){
         console.log(`\n\n~ Teacher Menu ~\n`);
         console.log('1. Input Student\'s Score');
-        console.log(`2. Student List`);
+        console.log(`2. Register Student`);
+        console.log('3. Student List');
         
         const numTeacherChoice = parseInt(prompt('Choose Menu: '));
         switch(numTeacherChoice){
@@ -70,6 +71,10 @@ function teacher(){
             case 2:
                 opsi=2;
                 teacherMenu2();
+                break;
+            case 3:
+                opsi=2;
+                teacherMenu3();
                 break;
             default:
                 opsi=0;
@@ -119,8 +124,19 @@ function teacherMenu1(){
 
     
 }
-
 function teacherMenu2(){
+    var firstStudentID = parseInt('20216127')
+    var numOfStudents = Object.keys(schoolObject.students).length;
+    var studentName = prompt('Please input the student\'s name: ');
+    //var studentID = prompt('Please input the student ID: ');
+    var studentID = (firstStudentID + numOfStudents).toString();
+    
+    schoolObject.students[studentID] = {name:studentName, password:'123', studentStatus : true, courses:{}};
+
+    console.log(`Successfully added ${studentName} with Student number : ${studentID}`);
+    console.log(schoolObject.students[studentID]);
+}
+function teacherMenu3(){
     console.log(`\t\t  ~ Student List ~`);
     for(let keyObject in schoolObject.students){
         console.log(`\t${keyObject}\t${schoolObject.students[keyObject].name}`)
@@ -247,7 +263,7 @@ function studentMenu1(studentID){
 }
 
 const prompt = require('prompt-sync')({sigint: true});
-const inquirer = require('inquirer');
+//const inquirer = require('inquirer');
 var number = 1;
 while(number !== 0){
     console.log(`=== BLOCKCHAIN-BASED STUDENT RESULT PAGES ====\n\n`);
